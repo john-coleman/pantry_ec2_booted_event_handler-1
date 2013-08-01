@@ -7,15 +7,11 @@
 # Ignore bundler config
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 
 # Ignore configuration files
-/config/database.yml
 /daemons/daemon.yml
 /daemons/*/daemon.yml
 
@@ -25,8 +21,6 @@
 # Ignore code coverage reports
 /coverage
 
-/config/chef.yml
-/config/chef/*.pem
 *.pem
 .DS_Store
 /.*cache
