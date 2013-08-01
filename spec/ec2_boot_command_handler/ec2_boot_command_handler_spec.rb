@@ -1,5 +1,5 @@
 require 'spec_helper'
-require "#{Rails.root}/daemons/ec2_boot_command_handler/ec2_boot_command_handler"
+require "../ec2_boot_command_handler/ec2_boot_command_handler"
 
 describe Daemons::EC2BootCommandHandler do
   let(:ec2) { AWS::EC2.new }
