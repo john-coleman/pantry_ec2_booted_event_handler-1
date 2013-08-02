@@ -2,16 +2,15 @@
 
 require 'rubygems'
 require 'daemons'
-
 require 'common/publisher'
 require 'common/subscriber'
 require 'common/config'
-require_relative 'ec2_boot_command_handler'
+require_relative 'ec2_boot_command_handler/ec2_boot_command_handler'
 
 THIS_FILE = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 config = Daemons::Config.new(
   File.expand_path(
-    File.join(File.dirname(THIS_FILE),"daemon.yml")
+    File.join(File.dirname(THIS_FILE),"config","daemon.yml")
   )
 )
 

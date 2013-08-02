@@ -12,8 +12,6 @@
 /tmp
 
 # Ignore configuration files
-/daemons/daemon.yml
-/daemons/*/daemon.yml
 /*/daemon.yml
 
 # Ignore aptana project config
