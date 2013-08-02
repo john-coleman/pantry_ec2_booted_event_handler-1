@@ -1,9 +1,5 @@
-#!/usr/bin/env ruby
-
 require 'aws-sdk'
-require 'json'
 require 'timeout'
-require_relative '../common/publisher'
 
 module Daemons
   class EC2BootCommandHandler
@@ -32,19 +28,19 @@ module Daemons
       end
       raise_machine_booted_event(
         msg,
-        instance_id        
+        instance_id
       )
     end
 
     def raise_machine_booted_event(msg_in, instance_id)
       msg_out = msg_in.merge({instance_id: instance_id})
-      @publisher.publish(msg_out)      
+      @publisher.publish(msg_out)
     end
 
     def machine_already_booted(request_id)
       machine = @ec2.instances.tagged('pantry_request_id').tagged_values("#{request_id}").first
       if !machine.nil?
-        return machine.id 
+        return machine.id
       else
         return false
       end
