@@ -10,6 +10,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'em-winrm', git: 'https://github.com/besol/em-winrm.git'
   gem 'simplecov', require: false
   gem 'simplecov-rcov', require: false
   gem 'rspec-fire'
