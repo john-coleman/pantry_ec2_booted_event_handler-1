@@ -3,8 +3,9 @@
 require 'rubygems'
 require 'daemons'
 
-require_relative '../common/subscriber'
-require_relative '../common/config'
+require 'common/publisher'
+require 'common/subscriber'
+require 'common/config'
 require_relative 'ec2_boot_command_handler'
 
 THIS_FILE = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
