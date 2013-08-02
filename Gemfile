@@ -16,4 +16,5 @@ group :test, :development do
   gem 'rspec-fire'
   gem 'rspec'
   gem 'pry-debugger'
+  gem 'rake'
 end
