@@ -9,9 +9,12 @@ module Daemons
     end
 
     def handle_message(message)
+      puts message
       url = @config["pantry"]["url"]
       msg_json = JSON.parse(message["Message"])
-      request_url = "#{url}/aws/ec2_instances/#{msg_json["request_id"].to_s}"
+      request_id = msg_json['pantry_request_id']
+      request_url = "#{url}/aws/ec2_instances/#{request_id}"
+      puts request_url
       update = ({:booted=>true,:instance_id=>msg_json["instance_id"]}).to_json
       puts "#{update}"
       Timeout::timeout(@config['pantry']['timeout']){
