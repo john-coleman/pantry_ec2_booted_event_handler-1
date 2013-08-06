@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
-
 require 'rubygems'
 require 'daemons'
 require 'common/publisher'
 require 'common/subscriber'
 require 'common/config'
-require_relative 'ec2_boot_command_handler/ec2_boot_command_handler'
+require_relative 'ec2_booted_event_handler/ec2_booted_event_handler'
 
 THIS_FILE = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 config = Daemons::Config.new(
@@ -21,18 +20,15 @@ daemon_config = {
   :monitor => config['daemon']['monitor']
 }
 
-ec2 = AWS::EC2.new
-publisher = Publisher.new(config['sns']['topic_arn'])
 
 Daemons.run_proc(config['daemon']['app_name'], daemon_config) {
   begin
     Daemons::Subscriber.new.subscribe(
       config['sqs']['queue_name'],
-      Daemons::EC2BootCommandHandler.new(ec2, publisher)
+      Daemons::EC2BootedEventHandler.new(config)
     )
   rescue => e
     puts "#{e}"
     retry
   end
 }
-

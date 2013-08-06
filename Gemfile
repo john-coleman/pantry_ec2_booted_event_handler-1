@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'daemons'
 gem 'aws-sdk'
+gem 'rest-client'
 gem 'pantry_daemon_common', git: 'git@github.com:wongatech/pantry_daemon_common.git'
 
 group :development do
