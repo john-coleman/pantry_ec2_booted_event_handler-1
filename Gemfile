@@ -4,7 +4,7 @@ gem 'daemons'
 gem 'aws-sdk'
 gem 'rest-client'
 gem 'webmock'
-gem 'pantry_daemon_common', git: 'git@github.com:wongatech/pantry_daemon_common.git', tag: 'v0.0.3'
+gem 'pantry_daemon_common', git: 'git@github.com:wongatech/pantry_daemon_common.git', tag: 'v0.1.1'
 
 group :development do
   gem 'guard-rspec'
