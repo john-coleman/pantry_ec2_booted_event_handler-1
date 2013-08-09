@@ -2,32 +2,57 @@ require 'spec_helper'
 require_relative "../../ec2_booted_event_handler/ec2_booted_event_handler"
 
 describe Daemons::EC2BootedEventHandler do
-  subject { Daemons::EC2BootedEventHandler.new() }
-
-  let(:good_message_hash) {
+  let(:config) {
     {
-      "Message"=>{
-        "request_id"=>1,
-        "instance_id"=>"i-f4819cb9"
+      "pantry"=> {
+        "api_key" => "some_api_key",
+        "request_timeout" => 10,
+        "url" => "http://some.url"
       }
     }
   }
-  let(:good_message_json) { good_message_hash.to_json }
-  let(:good_payload_json) { good_message_json["Message"].to_json }
-  let(:url) { "some_url" }
-  let(:api_key) { "some_api_key"}
-  let(:timeout) { 10 }
+  let(:good_message_hash) {
+    {
+      "pantry_request_id"=>1,
+      "instance_id"=>"i-f4819cb9"
+    }
+  }
+  subject { Daemons::EC2BootedEventHandler.new(config) }
 
-  describe "#update_instance_booted_status" do
-    it "Updates the instance boot status from a good message" do
-      expect{subject.update_instance_booted_status(url,good_payload_json,api_key,timeout)}.not_to be false
-    end
-  end
+
 
   describe "#handle_message" do
-    it "Receives a correct SQS message and proceeds" do
-      expect{subject.handle_message(good_message_json)}.not_to be false
+    before(:each) do
+      WebMock.reset!
+    end
+    context "HTTP200" do
+      it "Receives a correct SQS message and proceeds" do
+        WebMock.stub_request(:put, "http://some.url/aws/ec2_instances/1").
+          with(:body => "{\"booted\":true,\"instance_id\":\"i-f4819cb9\"}",
+               :headers => {'Accept'=>'application/json',
+                            'Accept-Encoding'=>'gzip, deflate',
+                            'Content-Length'=>'42',
+                            'User-Agent'=>'Ruby',
+                            'Content-Type'=>'application/json',
+                            'X-Auth-Token'=>'some_api_key'}).
+                            to_return(:status => 200, :body => "", :headers => {})
+        expect(subject.handle_message(good_message_hash).code).to be 200
+      end
+    end
+
+    context "HTTP500" do
+      it "Receives an incorrect SQS message and raises and error" do
+        WebMock.stub_request(:put, "http://some.url/aws/ec2_instances/1").
+          with(:body => "{\"booted\":true,\"instance_id\":\"i-f4819cb9\"}",
+               :headers => {'Accept'=>'application/json',
+                            'Accept-Encoding'=>'gzip, deflate',
+                            'Content-Length'=>'42',
+                            'User-Agent'=>'Ruby',
+                            'Content-Type'=>'application/json',
+                            'X-Auth-Token'=>'some_api_key'}).
+                            to_return(:status => 500, :body => "", :headers => {})
+        expect{subject.handle_message(good_message_hash)}.to raise_error(RestClient::InternalServerError)
+      end
     end
   end
-
 end
