@@ -1,7 +1,7 @@
 require 'spec_helper'
 require_relative "../../ec2_booted_event_handler/ec2_booted_event_handler"
 
-describe Daemons::EC2BootedEventHandler do
+describe Wonga::Daemon::EC2BootedEventHandler do
   let(:config) {
     {
       "pantry"=> {
@@ -17,9 +17,9 @@ describe Daemons::EC2BootedEventHandler do
       "instance_id"=>"i-f4819cb9"
     }
   }
-  subject { Daemons::EC2BootedEventHandler.new(config) }
+  let(:logger) { instance_double('Logger').as_null_object }
 
-
+  subject { Wonga::Daemon::EC2BootedEventHandler.new(config,logger) }
 
   describe "#handle_message" do
     before(:each) do
