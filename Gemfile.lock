@@ -1,30 +1,20 @@
 GIT
   remote: git@github.com:wongatech/pantry_daemon_common.git
-  revision: 7cf30fdf30083555fa0b2eb0e0cf5c51dc8da9a2
-  tag: v0.1.1
+  revision: d70ba70283f7f2e6f8681249516c06ba838134bd
+  tag: v0.1.5
   specs:
-    pantry_daemon_common (0.1.1)
+    pantry_daemon_common (0.1.5)
       aws-sdk
       daemons
       em-winrm
       net-ssh
       net-ssh-multi
+      rest-client
       syslogger
-
-GIT
-  remote: https://github.com/besol/em-winrm.git
-  revision: 3a61bf6246666a5260ec0811db045da318e0d4af
-  specs:
-    em-winrm (0.6.0)
-      eventmachine
-      mixlib-log
-      uuidtools
-      winrm
 
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.5)
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
@@ -35,8 +25,6 @@ GEM
     builder (3.2.2)
     coderay (1.0.9)
     columnize (0.3.6)
-    crack (0.4.1)
-      safe_yaml (~> 0.9.0)
     daemons (1.1.9)
     debugger (1.6.1)
       columnize (>= 0.3.1)
@@ -45,8 +33,13 @@ GEM
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
-    eventmachine (1.0.3)
-    eventmachine (1.0.3-x86-mingw32)
+    em-winrm (0.5.4)
+      eventmachine (= 1.0.0.beta.3)
+      mixlib-log (>= 1.3.0)
+      uuidtools (~> 2.1.1)
+      winrm (~> 1.1.0)
+    eventmachine (1.0.0.beta.3)
+    eventmachine (1.0.0.beta.3-x86-mingw32)
     ffi (1.9.0)
     ffi (1.9.0-x86-mingw32)
     formatador (0.2.4)
@@ -79,7 +72,7 @@ GEM
       little-plugger (>= 1.1.3)
     lumberjack (1.0.4)
     method_source (0.8.2)
-    mime-types (1.23)
+    mime-types (1.24)
     mixlib-log (1.6.0)
     multi_json (1.7.8)
     net-ssh (2.6.8)
@@ -123,7 +116,6 @@ GEM
       rspec (~> 2.11)
     rspec-mocks (2.14.2)
     rubyntlm (0.1.1)
-    safe_yaml (0.9.5)
     savon (0.9.5)
       akami (~> 1.0)
       builder (>= 2.1.2)
@@ -144,9 +136,6 @@ GEM
     uuidtools (2.1.4)
     wasabi (1.0.0)
       nokogiri (>= 1.4.0)
-    webmock (1.13.0)
-      addressable (>= 2.2.7)
-      crack (>= 0.3.2)
     win32console (1.3.2-x86-mingw32)
     winrm (1.1.2)
       gssapi (~> 1.0.0)
@@ -164,15 +153,12 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   daemons
-  em-winrm!
   guard-bundler
   guard-rspec
   pantry_daemon_common!
   pry-debugger
   rake
-  rest-client
   rspec
   rspec-fire
   simplecov
   simplecov-rcov
-  webmock
