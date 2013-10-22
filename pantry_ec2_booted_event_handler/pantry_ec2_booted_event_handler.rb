@@ -8,7 +8,7 @@ module Wonga
 
       def handle_message(message)
         @logger.info "Updating booted status for Request:#{message["pantry_request_id"]}, Name:#{message["instance_name"]}, InstanceID:#{message["instance_id"]}"
-        @api_client.send_put_request("/api/ec2_instances/#{message["pantry_request_id"]}", { booted: true, instance_id: message["instance_id"]})
+        @api_client.send_put_request("/api/ec2_instances/#{message["pantry_request_id"]}", { booted: true, instance_id: message["instance_id"], ip_address: message["private_ip"] } )
         @logger.info "Updating booted status for Request:#{message["pantry_request_id"]} succeeded"
       end
     end
