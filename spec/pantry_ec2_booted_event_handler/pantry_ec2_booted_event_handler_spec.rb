@@ -11,7 +11,7 @@ describe Wonga::Daemon::PantryEC2BootedEventHandler do
   it "updates Pantry using PantryApiClient" do
     expect(api_client).to receive(:send_put_request).with(
       "/api/ec2_instances/40",
-      { "user_id" => 1, "pantry_request_id" => 40, "instance_id" => "i-0123abcd", "private_ip" => "999.999.0.1", :booted => true }
+      { "user_id" => 1, "pantry_request_id" => 40, "instance_id" => "i-0123abcd", "private_ip" => "999.999.0.1", :event => 'booted' }
     )
     subject.handle_message(message)
   end
