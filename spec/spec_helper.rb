@@ -6,12 +6,10 @@ unless ENV["SKIP_COV"]
     SimpleCov::Formatter::RcovFormatter
   ]
 end
+
 require 'spec_support/shared_daemons'
 require 'rspec/fire'
 require 'aws-sdk'
-
-AWS.config :access_key_id=>"test", :secret_access_key=>"test"
-AWS.stub!
 
 RSpec.configure do |config|
   config.include(RSpec::Fire)
